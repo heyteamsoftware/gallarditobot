@@ -477,6 +477,9 @@
   sendBtn.addEventListener("click", function(){ send(); });
   input.addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); send(); } });
   document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !panel.hidden){ closePanel(); } });
+
+  // El bot inicia la conversación solo al abrir la web
+  setTimeout(openPanel, 700);
 })();
 </script>
 
