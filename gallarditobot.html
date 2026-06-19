@@ -441,14 +441,30 @@
     } else if(t){ t.remove(); }
   }
 
-  function answer(text){
+  // Tiempo de "escribiendo…" proporcional a la longitud del texto (más realista)
+  function typingDelay(html){
+    var len = String(html).replace(/<[^>]+>/g, "").length;
+    return Math.min(2000, Math.max(550, 350 + len * 14));
+  }
+
+  // El bot "escribe" y luego suelta el mensaje
+  function botSay(html, after){
     typing(true);
     setTimeout(function(){
       typing(false);
-      var intent = buscar(text);
-      if(intent && intent.action){ intent.action(); }
-      else { addMsg((intent && intent.answer()) || FALLBACK, "bot"); }
-    }, 420);
+      addMsg(html, "bot");
+      if(after) after();
+    }, typingDelay(html));
+  }
+
+  function answer(text){
+    var intent = buscar(text);
+    if(intent && intent.action){
+      typing(true);
+      setTimeout(function(){ typing(false); intent.action(); }, 700);
+    } else {
+      botSay((intent && intent.answer()) || FALLBACK);
+    }
   }
 
   function send(text){
@@ -492,13 +508,9 @@
     addOptions(AREAS.map(function(a){
       return { label:a.label, onClick:function(){
         addMsg(a.label, "user");
-        typing(true);
-        setTimeout(function(){
-          typing(false);
-          var enFam = CICLOS.filter(function(c){ return c.fam === a.fam; });
-          addMsg("En <strong>" + a.fam + "</strong> puedes formarte en:" + listaCiclos(enFam) +
-                 "<br>Escribe el nombre de un ciclo para ver sus detalles.", "bot");
-        }, 380);
+        var enFam = CICLOS.filter(function(c){ return c.fam === a.fam; });
+        botSay("En <strong>" + a.fam + "</strong> puedes formarte en:" + listaCiclos(enFam) +
+               "<br>Escribe el nombre de un ciclo para ver sus detalles.");
       }};
     }));
   }
