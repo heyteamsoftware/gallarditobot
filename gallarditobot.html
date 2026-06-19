@@ -102,6 +102,8 @@
   @keyframes gb-blink{ 0%,60%,100%{opacity:.3} 30%{opacity:1} }
   @media (prefers-reduced-motion: reduce){ .gb-typing span{ animation:none; opacity:.6; } #gb-launcher{ transition:none; } }
 
+  .gb-optrow{ display:block; }
+  .gb-options{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 4px 36px; }
   #gb-chips{ display:flex; flex-wrap:wrap; gap:6px; padding:8px 12px 0; background:#fff; }
   .gb-chip{
     border:1px solid #CBD6E6; background:#EEF3FA; color:#122A4D; cursor:pointer;
@@ -196,6 +198,17 @@
     { nombre:"Instalación y Mantenimiento",                keys:["instalacion y mantenimiento","mantenimiento industrial"] },
     { nombre:"Sanidad",                                    keys:["sanidad","salud","sanitaria"] },
     { nombre:"Industrias Alimentarias",                    keys:["industrias alimentarias","alimentaria","alimentacion"] }
+  ];
+
+  // -- Ámbitos / profesiones para el flujo guiado "¿a qué te gustaría dedicarte?" --
+  var AREAS = [
+    { label:"Ayudar y cuidar a personas",   fam:"Servicios Socioculturales y a la Comunidad" },
+    { label:"Salud y sanidad",              fam:"Sanidad" },
+    { label:"Deporte y actividad física",   fam:"Actividades Físicas y Deportivas" },
+    { label:"Seguridad y emergencias",      fam:"Seguridad y Medio Ambiente" },
+    { label:"Industria y mantenimiento",    fam:"Instalación y Mantenimiento" },
+    { label:"Carpintería y madera",         fam:"Madera, Mueble y Corcho" },
+    { label:"Alimentación y pastelería",    fam:"Industrias Alimentarias" }
   ];
 
   // -- Fechas destacadas (curso 2026/2027) --
@@ -311,7 +324,7 @@
   }});
 
   // Oferta completa
-  INTENTS.push({ keys:["ciclos","oferta","oferta formativa","titulaciones","formativos","que estudiar","que puedo estudiar","grados","que hay","familias","familias profesionales","todos los ciclos"], answer:ofertaCompleta });
+  INTENTS.push({ keys:["ciclos","oferta","oferta formativa","titulaciones","formativos","que estudiar","que puedo estudiar","grados","que hay","familias","familias profesionales","todos los ciclos","ciclos formativos"], action:function(){ showDedicarte(); } });
 
   // Fechas
   INTENTS.push({ keys:["fechas","plazos","calendario","fechas importantes","fechas destacadas","cuando","fechas clave"], answer:fechasTodas });
@@ -377,7 +390,7 @@
         bestScore = score; bestLen = maxLen; best = INTENTS[i];
       }
     }
-    if(best && bestScore >= 1) return best.answer();
+    if(best && bestScore >= 1) return best;
     return null;
   }
 
@@ -432,8 +445,9 @@
     typing(true);
     setTimeout(function(){
       typing(false);
-      var resp = buscar(text);
-      addMsg(resp || FALLBACK, "bot");
+      var intent = buscar(text);
+      if(intent && intent.action){ intent.action(); }
+      else { addMsg((intent && intent.answer()) || FALLBACK, "bot"); }
     }, 420);
   }
 
@@ -453,6 +467,40 @@
       c.addEventListener("click", function(){ send(label); });
       chipsBox.appendChild(c);
     });
+  }
+
+  // Botones de opciones dentro de la conversación
+  function addOptions(options){
+    var row = document.createElement("div");
+    row.className = "gb-msg gb-bot gb-optrow";
+    var wrap = document.createElement("div");
+    wrap.className = "gb-options";
+    options.forEach(function(o){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "gb-chip"; b.textContent = o.label;
+      b.addEventListener("click", function(){ o.onClick(); });
+      wrap.appendChild(b);
+    });
+    row.appendChild(wrap);
+    log.appendChild(row);
+    scrollBottom();
+  }
+
+  // Flujo guiado: ¿a qué te gustaría dedicarte? -> familia -> ciclos
+  function showDedicarte(){
+    addMsg("¡Perfecto! Para orientarte mejor, dime: <strong>¿a qué te gustaría dedicarte?</strong> Elige un ámbito:", "bot");
+    addOptions(AREAS.map(function(a){
+      return { label:a.label, onClick:function(){
+        addMsg(a.label, "user");
+        typing(true);
+        setTimeout(function(){
+          typing(false);
+          var enFam = CICLOS.filter(function(c){ return c.fam === a.fam; });
+          addMsg("En <strong>" + a.fam + "</strong> puedes formarte en:" + listaCiclos(enFam) +
+                 "<br>Escribe el nombre de un ciclo para ver sus detalles.", "bot");
+        }, 380);
+      }};
+    }));
   }
 
   function openPanel(){
