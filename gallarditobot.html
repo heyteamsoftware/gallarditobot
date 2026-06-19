@@ -57,10 +57,10 @@
   #gb-launcher-img{ width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
 
   #gb-panel{
-    position:absolute; right:0; bottom:74px; width:360px; max-width:calc(100vw - 32px);
-    height:540px; max-height:calc(100vh - 110px);
-    background:#fff; border-radius:16px; overflow:hidden; display:flex; flex-direction:column;
-    box-shadow:0 16px 48px rgba(0,0,0,.22); border:1px solid #E6E2DD;
+    position:fixed; inset:0; width:100vw; height:100vh; height:100dvh;
+    max-width:none; max-height:none;
+    background:#fff; border-radius:0; overflow:hidden; display:flex; flex-direction:column;
+    box-shadow:none; border:none;
   }
   #gb-head{
     display:flex; align-items:center; gap:10px; padding:12px 14px;
@@ -126,7 +126,7 @@
 
   @media (max-width:480px){
     #gb-root{ right:14px; bottom:14px; }
-    #gb-panel{ width:calc(100vw - 24px); height:calc(100vh - 96px); right:-6px; }
+    #gb-panel{ width:100vw; height:100vh; height:100dvh; right:0; }
   }
 </style>
 
