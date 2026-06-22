@@ -1,0 +1,13 @@
+/* Fija el iframe de GallarditoBot como burbuja en la esquina inferior derecha.
+   Se carga en la página padre vía Advanced iFrame > Add/Include files > Additional css */
+#advanced_iframe,
+.advanced_iframe,
+iframe[name="advanced_iframe"]{
+  position: fixed !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  z-index: 999999 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
