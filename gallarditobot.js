@@ -128,7 +128,7 @@
   // -- EDITAR CONTACTO: rellena estos datos y se mostrarán al preguntar por contacto --
   var CONTACTO = {
     telefono:  "+34 928 79 62 92",
-    email:     "35015887@gobiernodecanarias.org",
+    email:     "secretaria@iestonygallardo.com",
     direccion: "Ctra. de Las Coloradas, s/n, 35009 – La Isleta (Las Palmas de Gran Canaria)",
     web:       "https://www3.gobiernodecanarias.org/medusa/edublog/cifptonygallardo/"
   };
