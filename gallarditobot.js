@@ -440,7 +440,20 @@
   document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !panel.hidden){ closePanel(); } });
 
   // El bot inicia la conversación solo al abrir la web
-  setTimeout(openPanel, 700);
+  // (se puede desactivar con window.GB_NO_AUTOOPEN = true; p. ej. en modo iframe)
+  if(!window.GB_NO_AUTOOPEN){ setTimeout(openPanel, 700); }
+
+  // Modo iframe: avisar al contenedor del alto necesario para que se redimensione
+  if(window.GB_IFRAME && window.parent !== window){
+    var postSize = function(){
+      var open = !panel.hidden;
+      window.parent.postMessage({ gbType:"resize", open:open }, "*");
+    };
+    var mo = new MutationObserver(postSize);
+    mo.observe(panel, { attributes:true, attributeFilter:["hidden"] });
+    window.addEventListener("load", postSize);
+    postSize();
+  }
 })();
 })();
   }

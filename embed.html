@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GallarditoBot</title>
+<style>
+  html,body{ margin:0; background:transparent; }
+  /* Maquetación para iframe: el widget fluye (no fixed) para que el iframe
+     pueda auto-redimensionarse según esté cerrado (solo burbuja) o abierto. */
+  #gb-root{
+    position:static; display:flex; flex-direction:column; align-items:flex-end;
+    padding:6px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px; line-height:1.5; color:#2A2A2A;
+  }
+  #gb-launcher{
+    order:2; width:62px; height:62px; border-radius:50%; border:2px solid #1B3A6B; cursor:pointer; padding:0;
+    background:#fff; overflow:hidden; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(18,42,77,.35);
+  }
+  #gb-launcher-img{ width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
+
+  #gb-panel{
+    order:1; position:static; margin:0 0 12px 0;
+    width:min(380px, calc(100vw - 24px)); height:min(560px, calc(100vh - 110px));
+    background:#fff; border-radius:16px; overflow:hidden; display:flex; flex-direction:column;
+    box-shadow:0 16px 48px rgba(0,0,0,.22); border:1px solid #E6E2DD;
+  }
+  #gb-panel[hidden]{ display:none; }
+
+  #gb-head{ display:flex; align-items:center; gap:10px; padding:12px 14px; background:#1B3A6B; color:#fff; }
+  #gb-avatar{ width:40px; height:40px; border-radius:50%; background:#fff; overflow:hidden; flex:0 0 auto; }
+  #gb-avatar-img{ width:100%; height:100%; object-fit:cover; display:block; }
+  #gb-title{ display:flex; flex-direction:column; line-height:1.2; flex:1 1 auto; }
+  #gb-title strong{ font-size:16px; font-weight:600; }
+  #gb-title small{ font-size:12px; opacity:.85; }
+  #gb-close{ background:transparent; border:none; color:#fff; cursor:pointer; padding:6px; border-radius:8px; display:flex; }
+  #gb-close:hover{ background:rgba(255,255,255,.18); }
+
+  #gb-log{ flex:1 1 auto; overflow-y:auto; padding:16px 14px; background:#F7F5F2; }
+  .gb-msg{ display:flex; margin-bottom:10px; }
+  .gb-msg .gb-bubble{ padding:9px 12px; border-radius:14px; max-width:82%; word-wrap:break-word; font-size:14.5px; box-shadow:0 1px 2px rgba(0,0,0,.06); }
+  .gb-bot{ justify-content:flex-start; align-items:flex-end; }
+  .gb-bavatar{ width:28px; height:28px; border-radius:50%; object-fit:cover; flex:0 0 auto; margin-right:8px; }
+  .gb-bot .gb-bubble{ background:#fff; border:1px solid #ECE8E2; border-top-left-radius:4px; }
+  .gb-user{ justify-content:flex-end; }
+  .gb-user .gb-bubble{ background:#1B3A6B; color:#fff; border-top-right-radius:4px; }
+  .gb-bubble strong{ font-weight:600; }
+  .gb-bubble ul{ margin:6px 0 2px; padding-left:18px; }
+  .gb-bubble li{ margin:2px 0; }
+  .gb-bubble a{ color:inherit; text-decoration:underline; }
+
+  .gb-typing .gb-bubble{ display:inline-flex; gap:4px; }
+  .gb-typing span{ width:7px; height:7px; border-radius:50%; background:#B9B4AC; display:inline-block; animation:gb-blink 1.2s infinite; }
+  .gb-typing span:nth-child(2){ animation-delay:.2s; }
+  .gb-typing span:nth-child(3){ animation-delay:.4s; }
+  @keyframes gb-blink{ 0%,60%,100%{opacity:.3} 30%{opacity:1} }
+
+  .gb-optrow{ display:block; }
+  .gb-options{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 4px 36px; }
+  #gb-chips{ display:flex; flex-wrap:wrap; gap:6px; padding:8px 12px 0; background:#fff; }
+  .gb-chip{ border:1px solid #CBD6E6; background:#EEF3FA; color:#122A4D; cursor:pointer; font-size:12.5px; padding:6px 11px; border-radius:999px; line-height:1.2; font-family:inherit; }
+  .gb-chip:hover{ background:#DCE7F5; }
+
+  #gb-inputrow{ display:flex; align-items:center; gap:8px; padding:10px 12px 6px; background:#fff; }
+  #gb-input{ flex:1 1 auto; border:1px solid #DDD7D0; border-radius:999px; padding:10px 14px; font-size:14.5px; font-family:inherit; color:#2A2A2A; outline:none; background:#fff; }
+  #gb-input:focus{ border-color:#1B3A6B; box-shadow:0 0 0 3px rgba(27,58,107,.12); }
+  #gb-send{ flex:0 0 auto; width:42px; height:42px; border-radius:50%; border:none; cursor:pointer; background:#1B3A6B; color:#fff; display:flex; align-items:center; justify-content:center; }
+  #gb-send:hover{ background:#122A4D; }
+  #gb-foot{ font-size:10.5px; color:#9A958E; text-align:center; padding:2px 12px 10px; background:#fff; }
+</style>
+</head>
+<body>
+  <div id="gb-root" aria-live="polite">
+    <button id="gb-launcher" type="button" aria-label="Abrir GallarditoBot" aria-expanded="false">
+      <img id="gb-launcher-img" alt="" aria-hidden="true">
+    </button>
+    <section id="gb-panel" role="dialog" aria-label="Asistente GallarditoBot" aria-modal="false" hidden>
+      <header id="gb-head">
+        <span id="gb-avatar" aria-hidden="true"><img id="gb-avatar-img" alt=""></span>
+        <span id="gb-title"><strong>GallarditoBot</strong><small>Asistente del CIFP Tony Gallardo</small></span>
+        <button id="gb-close" type="button" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+      </header>
+      <div id="gb-log" role="log" aria-live="polite" tabindex="0"></div>
+      <div id="gb-chips" aria-label="Preguntas frecuentes"></div>
+      <div id="gb-inputrow">
+        <input id="gb-input" type="text" autocomplete="off" placeholder="Escribe tu pregunta…" aria-label="Escribe tu pregunta">
+        <button id="gb-send" type="button" aria-label="Enviar">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 12L4 4l6 8-6 8z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div id="gb-foot">GallarditoBot es un asistente informativo. Verifica siempre los datos oficiales.</div>
+    </section>
+  </div>
+
+  <!-- Modo iframe: sin apertura automática y con avisos de tamaño al contenedor -->
+  <script>window.GB_NO_AUTOOPEN = true; window.GB_IFRAME = true;</script>
+  <!-- Lógica y base de conocimiento (fuente única) -->
+  <script src="https://heyteamsoftware.github.io/gallarditobot/gallarditobot.js"></script>
+</body>
+</html>
