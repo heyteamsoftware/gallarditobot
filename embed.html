@@ -14,6 +14,23 @@
     padding:6px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size:15px; line-height:1.5; color:#2A2A2A;
   }
+  /* Teaser: burbujita de aviso que aparece sola y abre el chat al pulsarla */
+  #gb-teaser{
+    display:none; order:1; align-items:flex-start; gap:8px;
+    max-width:250px; margin:0 4px 12px 0;
+    background:#fff; color:#2A2A2A; border:1px solid #E6E2DD;
+    border-radius:16px; border-bottom-right-radius:4px; padding:12px 14px;
+    font-size:13.5px; line-height:1.45; box-shadow:0 8px 24px rgba(0,0,0,.20); cursor:pointer;
+    animation:gb-teaser-in .35s ease both;
+  }
+  #gb-teaser strong{ color:#1B3A6B; font-weight:600; }
+  #gb-teaser-close{
+    flex:0 0 auto; border:none; background:transparent; color:#9A958E;
+    cursor:pointer; font-size:18px; line-height:1; padding:0 0 0 4px;
+  }
+  #gb-teaser-close:hover{ color:#5A554E; }
+  @keyframes gb-teaser-in{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+
   #gb-launcher{
     order:2; width:62px; height:62px; border-radius:50%; border:2px solid #1B3A6B; cursor:pointer; padding:0;
     background:#fff; overflow:hidden; display:flex; align-items:center; justify-content:center;
@@ -73,6 +90,10 @@
 </head>
 <body>
   <div id="gb-root" aria-live="polite">
+    <div id="gb-teaser" role="button" tabindex="0" aria-label="Abrir el chat de GallarditoBot">
+      <span id="gb-teaser-text">¡Hola! Soy <strong>GallarditoBot</strong>, el Asistente Virtual del CIFP Tony Gallardo. Si tienes dudas, ¡no dudes en preguntarme!</span>
+      <button id="gb-teaser-close" type="button" aria-label="Cerrar aviso">&times;</button>
+    </div>
     <button id="gb-launcher" type="button" aria-label="Abrir GallarditoBot" aria-expanded="false">
       <img id="gb-launcher-img" alt="" aria-hidden="true">
     </button>
@@ -100,5 +121,24 @@
   <script>window.GB_NO_AUTOOPEN = true; window.GB_IFRAME = true;</script>
   <!-- Lógica y base de conocimiento (fuente única) -->
   <script src="https://heyteamsoftware.github.io/gallarditobot/gallarditobot.js"></script>
+  <script>
+    (function(){
+      var teaser  = document.getElementById("gb-teaser");
+      var closeT  = document.getElementById("gb-teaser-close");
+      var launcher= document.getElementById("gb-launcher");
+      var panel   = document.getElementById("gb-panel");
+      if(!teaser || !launcher || !panel) return;
+      function hide(){ teaser.style.display = "none"; }
+      // Mostrar el aviso poco después de cargar, solo si el chat está cerrado
+      setTimeout(function(){ if(panel.hidden){ teaser.style.display = "flex"; } }, 1400);
+      // Pulsar el aviso abre el chat
+      teaser.addEventListener("click", function(e){ if(e.target === closeT) return; hide(); launcher.click(); });
+      teaser.addEventListener("keydown", function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); hide(); launcher.click(); } });
+      // La "x" solo cierra el aviso
+      closeT.addEventListener("click", function(e){ e.stopPropagation(); hide(); });
+      // Al abrir el chat por su cuenta, ocultar el aviso
+      launcher.addEventListener("click", hide);
+    })();
+  </script>
 </body>
 </html>
