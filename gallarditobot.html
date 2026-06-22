@@ -172,39 +172,56 @@
   // -- Oferta formativa (familia, nivel, modalidad y palabras clave) --
   var CICLOS = [
     { n:"Atención a Personas en Situación de Dependencia", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Medio", mod:"",
-      keys:["dependencia","atencion a personas","personas en situacion de dependencia","apsd"] },
+      keys:["dependencia","atencion a personas","personas en situacion de dependencia","apsd"],
+      desc:"Capacita para atender a personas que necesitan apoyo en las actividades de la vida diaria por vejez, enfermedad o discapacidad. Aprenderás a mantener y mejorar su autonomía, gestionando la atención sanitaria, psicosocial y el apoyo doméstico, tanto en instituciones (residencias o centros de día) como en el propio domicilio." },
     { n:"Educación Infantil", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", mod:"Presencial y semipresencial",
-      keys:["educacion infantil","infantil","educador infantil","educadora infantil"] },
+      keys:["educacion infantil","infantil","educador infantil","educadora infantil"],
+      desc:"Orientado a diseñar, ejecutar y evaluar proyectos educativos para niños y niñas de 0 a 6 años (primer ciclo de infantil). Se centra en el desarrollo cognitivo, motor, afectivo y social, promoviendo el aprendizaje a través del juego, la expresión plástica y la educación en valores, en colaboración con las familias." },
     { n:"Integración Social", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", mod:"Presencial y semipresencial",
-      keys:["integracion social","integrador social","integradora social"] },
+      keys:["integracion social","integrador social","integradora social"],
+      desc:"Enfocado en programar y desarrollar actuaciones para prevenir o revertir situaciones de exclusión social. Se trabaja con colectivos vulnerables (inmigrantes, drogodependientes, personas sin hogar, menores en riesgo…) mediante programas de inserción laboral, mediación comunitaria, apoyo psicosocial y promoción de la igualdad de oportunidades." },
     { n:"Seguridad", fam:"Seguridad y Medio Ambiente", niv:"Grado Medio", mod:"",
-      keys:["seguridad","seguridad privada","vigilante"] },
+      keys:["seguridad","seguridad privada","vigilante"],
+      desc:"Forma profesionales capaces de vigilar y proteger bienes, establecimientos, espectáculos y personas conforme a la normativa de seguridad privada. Se adquieren conocimientos en técnicas de protección, primeros auxilios, defensa personal y uso de sistemas de seguridad electrónicos para garantizar el orden y prevenir delitos." },
     { n:"Emergencias y Protección Civil", fam:"Seguridad y Medio Ambiente", niv:"Grado Medio", mod:"",
-      keys:["emergencias","proteccion civil","emergencias y proteccion civil","bombero"] },
+      keys:["emergencias","proteccion civil","emergencias y proteccion civil","bombero"],
+      desc:"Prepara para intervenir de forma directa en extinción de incendios, rescates, salvamentos y atención sanitaria inicial. Es un enfoque operativo y táctico: uso de equipos de protección, vehículos de emergencia y herramientas específicas para mitigar riesgos naturales, tecnológicos o antrópicos." },
     { n:"Coordinación de Emergencias y Protección Civil", fam:"Seguridad y Medio Ambiente", niv:"Grado Superior", mod:"",
-      keys:["coordinacion de emergencias","coordinacion emergencias","coordinador emergencias"] },
+      keys:["coordinacion de emergencias","coordinacion emergencias","coordinador emergencias"],
+      desc:"Se centra en la planificación, gestión y supervisión de los planes de emergencia. Coordinarás recursos humanos y materiales en centros de control, dirigirás las operaciones de los equipos de intervención sobre el terreno y diseñarás estrategias de prevención y simulacros para la población." },
     { n:"Prevención de Riesgos Profesionales", fam:"Seguridad y Medio Ambiente", niv:"Grado Superior", mod:"",
-      keys:["prevencion de riesgos","prevencion riesgos","riesgos profesionales","prevencion riesgos profesionales","prl"] },
+      keys:["prevencion de riesgos","prevencion riesgos","riesgos profesionales","prevencion riesgos profesionales","prl"],
+      desc:"Capacita para evaluar los riesgos laborales en las empresas y proponer medidas para eliminarlos o reducirlos. Aprenderás a desarrollar planes de prevención, fomentar hábitos de trabajo seguros, realizar inspecciones y gestionar la salud ambiental e industrial, asegurando el cumplimiento de la legislación laboral." },
     { n:"Carpintería y Mueble (FP Básica)", fam:"Madera, Mueble y Corcho", niv:"Grado Básico", mod:"",
-      keys:["carpinteria basica","carpinteria y mueble basico","mueble basico"] },
+      keys:["carpinteria basica","carpinteria y mueble basico","mueble basico"],
+      desc:"Iniciación profesional a los procesos básicos de mecanizado, montaje y acabado de productos de madera. Se aprende el manejo seguro de herramientas manuales y máquinas sencillas, para asistir en la fabricación e instalación de mobiliario, puertas o estructuras ligeras de madera." },
     { n:"Carpintería y Mueble", fam:"Madera, Mueble y Corcho", niv:"Grado Medio", mod:"",
-      keys:["carpinteria","mueble","carpinteria y mueble","ebanisteria"] },
+      keys:["carpinteria","mueble","carpinteria y mueble","ebanisteria"],
+      desc:"Profundiza en la fabricación, montaje y reparación de muebles y estructuras de madera con maquinaria convencional y de control numérico (CNC). Aprenderás a interpretar planos, preparar materiales, aplicar barnices y acabados, e instalar carpintería en obras y reformas con criterios de calidad y seguridad." },
     { n:"Acondicionamiento Físico", fam:"Actividades Físicas y Deportivas", niv:"Grado Superior", mod:"",
-      keys:["acondicionamiento fisico","fitness","gimnasio","monitor fisico"] },
+      keys:["acondicionamiento fisico","fitness","gimnasio","monitor fisico"],
+      desc:"Orientado al sector del fitness y el bienestar: evaluar la condición física y diseñar programas de entrenamiento personalizados o colectivos. Aprenderás a dirigir salas de musculación, clases con música (ciclo indoor, pilates, aeróbic) y actividades acuáticas, buscando mejorar la salud y el rendimiento." },
     { n:"Enseñanza y Animación Sociodeportiva", fam:"Actividades Físicas y Deportivas", niv:"Grado Superior", mod:"",
-      keys:["animacion sociodeportiva","ensenanza sociodeportiva","sociodeportiva","teas","deporte"] },
+      keys:["animacion sociodeportiva","ensenanza sociodeportiva","sociodeportiva","teas","deporte"],
+      desc:"Enfocado en la pedagogía del deporte y la recreación: planificar y dirigir actividades físico-deportivas recreativas y de iniciación. Trabajarás como dinamizador de grupos, organizando campamentos, eventos deportivos, juegos de animación y turismo activo para todas las edades." },
     { n:"Fabricación y Montaje (FP Básica)", fam:"Instalación y Mantenimiento", niv:"Grado Básico", mod:"",
-      keys:["fabricacion y montaje","fabricacion","montaje basico"] },
+      keys:["fabricacion y montaje","fabricacion","montaje basico"],
+      desc:"Introduce a las tareas básicas de los talleres mecánicos y de carpintería metálica: técnicas elementales de soldadura, corte, plegado y ensamblado de piezas, además del montaje de tuberías e instalaciones básicas. Sirve de puente al mercado laboral o a un ciclo de grado medio." },
     { n:"Mantenimiento Electromecánico", fam:"Instalación y Mantenimiento", niv:"Grado Medio", mod:"",
-      keys:["mantenimiento electromecanico","electromecanico","electromecanica"] },
+      keys:["mantenimiento electromecanico","electromecanico","electromecanica"],
+      desc:"Forma en el montaje y conservación de maquinaria e instalaciones industriales y de edificación. Adquirirás competencias en mecánica, electricidad, neumática e hidráulica, aprendiendo a diagnosticar averías, sustituir piezas y realizar mantenimiento preventivo para garantizar la producción continua." },
     { n:"Mecatrónica Industrial", fam:"Instalación y Mantenimiento", niv:"Grado Superior", mod:"",
-      keys:["mecatronica","mecatronica industrial"] },
+      keys:["mecatronica","mecatronica industrial"],
+      desc:"Combina mecánica, electrónica e informática para configurar y gestionar sistemas industriales automatizados. Integrarás robots, autómatas programables (PLC) y visión artificial en las fábricas, liderando el mantenimiento correctivo y optimizando la automatización de la industria actual." },
     { n:"Cuidados Auxiliares de Enfermería", fam:"Sanidad", niv:"Grado Medio", mod:"",
-      keys:["cuidados auxiliares de enfermeria","auxiliar de enfermeria","auxiliar enfermeria","enfermeria","tcae"] },
+      keys:["cuidados auxiliares de enfermeria","auxiliar de enfermeria","auxiliar enfermeria","enfermeria","tcae"],
+      desc:"Una de las titulaciones más demandadas: proporcionar cuidados básicos de salud y asistir al personal médico y de enfermería. Incluye higiene y alimentación de pacientes, preparación del material sanitario, toma de constantes vitales y apoyo al paciente en hospitales, clínicas y residencias." },
     { n:"Higiene Bucodental", fam:"Sanidad", niv:"Grado Superior", mod:"",
-      keys:["higiene bucodental","bucodental","higienista dental","dental"] },
+      keys:["higiene bucodental","bucodental","higienista dental","dental"],
+      desc:"Enfocado en la salud oral: promover la salud mediante acciones preventivas y asistenciales en clínicas dentales. Realizarás limpiezas (tartrectomías), aplicarás selladores y fluoraciones, harás radiografías dentales y educarás sobre higiene, siempre bajo la supervisión del odontólogo." },
     { n:"Actividades de Panadería y Pastelería (FP Básica)", fam:"Industrias Alimentarias", niv:"Grado Básico", mod:"",
-      keys:["panaderia","pasteleria","panaderia y pasteleria","reposteria"] }
+      keys:["panaderia","pasteleria","panaderia y pasteleria","reposteria"],
+      desc:"Proporciona las destrezas fundamentales para elaborar panes, bollos, pasteles y productos de confitería. Aprenderás a preparar las materias primas (harinas, levaduras, azúcares), manejar hornos y utensilios de obrador y empaquetar los productos, manteniendo rigurosas normas de higiene y manipulación de alimentos." }
   ];
 
   var FAMILIAS = [
@@ -283,6 +300,7 @@
     var t = "<strong>" + c.n + "</strong>: sí, se imparte aquí. Es un ciclo de <strong>" + c.niv +
             "</strong>, familia de " + c.fam + ".";
     if(c.mod){ t += " Modalidad: " + c.mod + "."; }
+    if(c.desc){ t += "<br><br>" + c.desc; }
     return t;
   }
 
