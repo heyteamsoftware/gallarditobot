@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GallarditoBot</title>
 <style>
-  html,body{ margin:0; background:transparent; }
-  /* Maquetación para iframe: el widget fluye (no fixed) para que el iframe
-     pueda auto-redimensionarse según esté cerrado (solo burbuja) o abierto. */
+  html,body{ margin:0; background:transparent; height:100%; }
+  /* Contenido anclado abajo-derecha dentro del iframe, para que tanto cerrado
+     (solo burbuja) como abierto (panel) se vean correctamente en la esquina. */
+  body{ display:flex; align-items:flex-end; justify-content:flex-end; }
   #gb-root{
     position:static; display:flex; flex-direction:column; align-items:flex-end;
     padding:6px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -99,7 +100,5 @@
   <script>window.GB_NO_AUTOOPEN = true; window.GB_IFRAME = true;</script>
   <!-- Lógica y base de conocimiento (fuente única) -->
   <script src="https://heyteamsoftware.github.io/gallarditobot/gallarditobot.js"></script>
-  <!-- Auto-redimensionado del iframe (Advanced iFrame, external workaround) -->
-  <script src="https://www3.gobiernodecanarias.org/medusa/edublog/cifptonygallardo/wp-content/plugins/advanced-iframe/js/ai_external.js"></script>
 </body>
 </html>
