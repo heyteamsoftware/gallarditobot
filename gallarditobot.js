@@ -125,9 +125,6 @@
     defin:      "el 2 de julio de 2026"
   };
 
-  // -- Precio --
-  var PRECIO = "<strong>1,12&nbsp;€</strong> de matrícula y seguro + <strong>30&nbsp;€</strong> de materiales, actividades y servicios. <strong>Total: 31,12&nbsp;€</strong>.";
-
   // -- EDITAR CONTACTO: rellena estos datos y se mostrarán al preguntar por contacto --
   var CONTACTO = {
     telefono:  "+34 928 79 62 92",
@@ -185,16 +182,21 @@
       "</ul>";
   }
 
-  function contactoResp(){
+  function listaContacto(){
     var partes = [];
     if(CONTACTO.telefono)  partes.push("Teléfono: <strong>" + CONTACTO.telefono + "</strong>");
     if(CONTACTO.email)     partes.push("Email: <strong>" + CONTACTO.email + "</strong>");
     if(CONTACTO.direccion) partes.push("Dirección: " + CONTACTO.direccion);
     if(CONTACTO.web)       partes.push('Web: <a href="' + CONTACTO.web + '" target="_blank" rel="noopener">' + CONTACTO.web + "</a>");
-    if(!partes.length){
-      return "Para datos de contacto (teléfono, email o dirección) consulta la web oficial del centro o la secretaría. Aún no tengo esa información cargada.";
+    if(!partes.length) return "";
+    return "<ul><li>" + partes.join("</li><li>") + "</li></ul>";
+  }
+  function contactoResp(bare){
+    var lista = listaContacto();
+    if(!lista){
+      return "Para datos de contacto (teléfono, email o dirección) consulta la web oficial del centro o la secretaría.";
     }
-    return "Puedes contactar con el CIFP Tony Gallardo:<ul><li>" + partes.join("</li><li>") + "</li></ul>";
+    return (bare ? "" : "Puedes contactar con el CIFP Tony Gallardo:") + lista;
   }
 
   // Construcción de intenciones
@@ -236,7 +238,7 @@
     return "El <strong>periodo de solicitud de plaza</strong> (Grados D de FP Básica, Medio y Superior, y dobles titulaciones) es <strong>" + FECHAS.solicitud + "</strong>.";
   }});
   INTENTS.push({ keys:["matricula","matricularme","cuando me matriculo","plazo de matricula","continuidad","repetidor","formalizar matricula"], answer:function(){
-    return "El <strong>plazo de matrícula</strong> para alumnado de continuidad y repetidor (1º curso) es <strong>" + FECHAS.matricula + "</strong>.<br>" + "El precio de la matrícula es " + PRECIO;
+    return "El <strong>plazo de matrícula</strong> para alumnado de continuidad y repetidor (1º curso) es <strong>" + FECHAS.matricula + "</strong>.";
   }});
   INTENTS.push({ keys:["listas","admitidos","listas provisionales","listas definitivas","reserva","excluidos","reclamacion","renuncia","admision"], answer:function(){
     return "Sobre las <strong>listas de admisión</strong>:" +
@@ -247,9 +249,9 @@
       "</ul>";
   }});
 
-  // Precio
-  INTENTS.push({ keys:["precio","coste","cuanto cuesta","cuanto vale","precio matricula","pagar","tasas","seguro","cuota","cuanto pago"], answer:function(){
-    return "El precio de la matrícula es: " + PRECIO;
+  // Certificados -> remitir a contacto
+  INTENTS.push({ keys:["certificado","certificados","certificacion","titulo","titulos","expediente","notas","calificaciones","certificado academico","compulsa"], answer:function(){
+    return "Para consultas sobre <strong>certificados, títulos o expedientes</strong>, lo mejor es contactar directamente con la secretaría del centro:" + contactoResp(true);
   }});
 
   // Contacto
@@ -257,7 +259,7 @@
 
   // Conversacional
   INTENTS.push({ keys:["hola","buenas","hey","buenos dias","buenas tardes","buenas noches","saludos"], answer:function(){
-    return "¡Hola! Soy GallarditoBot. Puedo ayudarte con los <strong>ciclos formativos</strong>, las <strong>fechas y plazos</strong> y el <strong>precio de la matrícula</strong>. ¿Qué quieres saber?";
+    return "¡Hola! Soy GallarditoBot. Puedo ayudarte con los <strong>ciclos formativos</strong>, las <strong>fechas y plazos</strong> y los <strong>datos de contacto</strong> del centro. ¿Qué quieres saber?";
   }});
   INTENTS.push({ keys:["gracias","muchas gracias","genial","perfecto"], answer:function(){
     return "¡De nada! Si necesitas algo más sobre el centro, aquí estoy.";
@@ -269,7 +271,7 @@
     return "Soy el asistente del CIFP Tony Gallardo. Te puedo informar de:<ul>" +
       "<li>La <strong>oferta formativa</strong> (familias y ciclos).</li>" +
       "<li>Las <strong>fechas y plazos</strong> de solicitud, matrícula y listas.</li>" +
-      "<li>El <strong>precio</strong> de la matrícula.</li>" +
+      "<li>Los <strong>datos de contacto</strong> del centro.</li>" +
       "</ul>Prueba con: «¿qué ciclos de sanidad hay?» o «¿cuándo me matriculo?».";
   }});
 
@@ -295,9 +297,9 @@
     return null;
   }
 
-  var FALLBACK = "No tengo esa información cargada. Puedo ayudarte con los <strong>ciclos formativos</strong>, las <strong>fechas y plazos</strong> y el <strong>precio de la matrícula</strong>. Prueba con uno de los botones de abajo. 👇".replace("👇","");
+  var FALLBACK = "No tengo esa información. Para resolver tu duda, te recomiendo contactar directamente con el centro:" + contactoResp(true);
 
-  var CHIPS = ["Ciclos formativos", "Fechas y plazos", "Precio de matrícula", "Contacto"];
+  var CHIPS = ["Ciclos formativos", "Fechas y plazos", "Contacto"];
 
   /* ---------- Interfaz ---------- */
   var root    = document.getElementById("gb-root");
@@ -421,7 +423,7 @@
     launcher.setAttribute("aria-expanded", "true");
     if(!started){
       started = true;
-      addMsg("¡Hola! 👋 Soy <strong>GallarditoBot</strong>, el asistente del CIFP Tony Gallardo. Pregúntame por nuestros ciclos, las fechas de matrícula o el precio. ¿En qué te ayudo?".replace("👋",""), "bot");
+      addMsg("¡Hola! 👋 Soy <strong>GallarditoBot</strong>, el asistente del CIFP Tony Gallardo. Pregúntame por nuestros ciclos, las fechas de matrícula o cómo contactar con el centro. ¿En qué te ayudo?".replace("👋",""), "bot");
       buildChips();
     }
     setTimeout(function(){ input.focus(); }, 50);
