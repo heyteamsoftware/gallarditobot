@@ -5,9 +5,12 @@
 iframe[name="advanced_iframe"]{
   position: fixed !important;
   right: 12px !important;
+  left: auto !important;
   bottom: 12px !important;
+  top: auto !important;
   z-index: 999999 !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
+  margin: 0 !important;
 }
