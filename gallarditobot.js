@@ -297,7 +297,10 @@
     return null;
   }
 
-  var FALLBACK = "No tengo esa información. Para resolver tu duda, te recomiendo contactar directamente con el centro:" + contactoResp(true);
+  var FALLBACK = "No tengo esa información. Para resolver tu duda, contacta con la secretaría del centro:<ul>" +
+    "<li>Teléfono: <strong>" + CONTACTO.telefono + "</strong></li>" +
+    "<li>Email: <strong>" + CONTACTO.email + "</strong></li>" +
+    "</ul>";
 
   var CHIPS = ["Ciclos formativos", "Fechas y plazos", "Contacto"];
 
