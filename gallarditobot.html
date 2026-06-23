@@ -221,7 +221,10 @@
       desc:"Cuidados básicos de salud y apoyo al personal sanitario: higiene y alimentación de pacientes, preparación del material, toma de constantes y apoyo al paciente en hospitales, clínicas y residencias." },
     { n:"Higiene Bucodental", fam:"Sanidad", niv:"Grado Superior", turno:"Mañana",
       keys:["higiene bucodental","bucodental","higienista dental","dental"],
-      desc:"Salud oral: acciones preventivas y asistenciales en clínicas dentales (limpiezas, selladores, fluoraciones, radiografías) y educación sobre higiene, bajo la supervisión del odontólogo." }
+      desc:"Salud oral: acciones preventivas y asistenciales en clínicas dentales (limpiezas, selladores, fluoraciones, radiografías) y educación sobre higiene, bajo la supervisión del odontólogo." },
+    { n:"Actividades de Panadería y Pastelería (FP Básica)", fam:"Industrias Alimentarias", niv:"Grado Básico", turno:"Mañana",
+      keys:["panaderia","pasteleria","panaderia y pasteleria","reposteria"],
+      desc:"FP Básica para elaborar panes, bollos, pasteles y productos de confitería: preparar materias primas (harinas, levaduras, azúcares), manejar hornos y utensilios de obrador y empaquetar, con rigurosas normas de higiene." }
   ];
 
   var FAMILIAS = [
@@ -230,7 +233,8 @@
     { nombre:"Madera, Mueble y Corcho",                    keys:["madera","corcho","madera mueble y corcho"] },
     { nombre:"Actividades Físicas y Deportivas",           keys:["actividades fisicas","fisicas y deportivas","deportivas"] },
     { nombre:"Instalación y Mantenimiento",                keys:["instalacion y mantenimiento","mantenimiento industrial"] },
-    { nombre:"Sanidad",                                    keys:["sanidad","salud","sanitaria"] }
+    { nombre:"Sanidad",                                    keys:["sanidad","salud","sanitaria"] },
+    { nombre:"Industrias Alimentarias",                    keys:["industrias alimentarias","alimentaria","alimentacion"] }
   ];
 
   // -- Ámbitos / profesiones para el flujo guiado "¿a qué te gustaría dedicarte?" --
@@ -240,7 +244,18 @@
     { label:"Deporte y actividad física",   fam:"Actividades Físicas y Deportivas" },
     { label:"Seguridad y emergencias",      fam:"Seguridad y Medio Ambiente" },
     { label:"Industria y mantenimiento",    fam:"Instalación y Mantenimiento" },
-    { label:"Carpintería y madera",         fam:"Madera, Mueble y Corcho" }
+    { label:"Carpintería y madera",         fam:"Madera, Mueble y Corcho" },
+    { label:"Alimentación y pastelería",    fam:"Industrias Alimentarias" }
+  ];
+
+  // -- Itinerarios formativos para personas adultas (PFPA, +21 años) --
+  var ITINERARIOS = [
+    { n:"Actividades Auxiliares de Almacén", fam:"Comercio y Marketing",
+      keys:["almacen","auxiliar de almacen","actividades auxiliares de almacen","mozo de almacen","logistica basica"],
+      desc:"Tareas auxiliares de almacenaje: recepción y ubicación de mercancías, preparación de pedidos, manejo básico de equipos de carga y control de existencias." },
+    { n:"Operaciones Básicas de Restaurante y Bar", fam:"Hostelería y Turismo",
+      keys:["restaurante","bar","operaciones basicas de restaurante","operaciones basicas de bar","camarero","restauracion","hosteleria"],
+      desc:"Operaciones básicas de servicio en restaurante y bar: preparación de la sala, atención al cliente, servicio de alimentos y bebidas y manejo de la cafetería." }
   ];
 
   // -- Turnos --
@@ -385,6 +400,18 @@
 
   // Oferta completa
   INTENTS.push({ keys:["ciclos","oferta","oferta formativa","titulaciones","formativos","que estudiar","que puedo estudiar","grados","que hay","familias","familias profesionales","todos los ciclos","ciclos formativos"], action:function(){ showDedicarte(); } });
+
+  // Itinerarios formativos para adultos (+21)
+  ITINERARIOS.forEach(function(it){
+    INTENTS.push({ keys:it.keys, answer:function(){
+      return "<strong>" + it.n + "</strong> (itinerario formativo para personas adultas, +21 años · " + it.fam + ").<br><br>" + it.desc;
+    }, chips:[ {label:"Otros cursos +21", q:"itinerarios +21"}, {label:"Contacto", q:"contacto"} ] });
+  });
+  INTENTS.push({ keys:["itinerarios","itinerario","itinerarios formativos","mas de 21","21 anos","adultos","personas adultas","pfpa","fpa","cursos para adultos","formacion para adultos"], answer:function(){
+    var html = "Tenemos <strong>itinerarios formativos para personas adultas (+21 años)</strong>:<ul>";
+    ITINERARIOS.forEach(function(it){ html += "<li>" + it.n + " <em>(" + it.fam + ")</em></li>"; });
+    return html + "</ul>¿Cuál te interesa?";
+  }, chips:ITINERARIOS.map(function(it){ return { label:it.n, q:it.keys[0] }; }) });
 
   // Turnos
   INTENTS.push({ keys:["turno","turnos","horario de clase","manana tarde noche","que turnos hay"], answer:function(){
