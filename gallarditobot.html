@@ -171,57 +171,57 @@
 
   // -- Oferta formativa (familia, nivel, modalidad y palabras clave) --
   var CICLOS = [
-    { n:"Atención a Personas en Situación de Dependencia", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Medio", mod:"",
+    { n:"Actividades Domésticas y Limpieza de Edificios", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Básico", turno:"Mañana",
+      keys:["actividades domesticas","limpieza de edificios","limpieza","actividades domesticas y limpieza"],
+      desc:"FP Básica orientada a las tareas domésticas y a la limpieza y mantenimiento de edificios: organización del trabajo, higiene y manejo seguro de productos y equipos de limpieza." },
+    { n:"Atención a Personas en Situación de Dependencia", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Medio", turno:"Tarde",
       keys:["dependencia","atencion a personas","personas en situacion de dependencia","apsd"],
-      desc:"Capacita para atender a personas que necesitan apoyo en las actividades de la vida diaria por vejez, enfermedad o discapacidad. Aprenderás a mantener y mejorar su autonomía, gestionando la atención sanitaria, psicosocial y el apoyo doméstico, tanto en instituciones (residencias o centros de día) como en el propio domicilio." },
-    { n:"Educación Infantil", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", mod:"Presencial y semipresencial",
-      keys:["educacion infantil","infantil","educador infantil","educadora infantil"],
-      desc:"Orientado a diseñar, ejecutar y evaluar proyectos educativos para niños y niñas de 0 a 6 años (primer ciclo de infantil). Se centra en el desarrollo cognitivo, motor, afectivo y social, promoviendo el aprendizaje a través del juego, la expresión plástica y la educación en valores, en colaboración con las familias." },
-    { n:"Integración Social", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", mod:"Presencial y semipresencial",
+      desc:"Capacita para atender a personas que necesitan apoyo en las actividades de la vida diaria por vejez, enfermedad o discapacidad, manteniendo su autonomía con atención sanitaria, psicosocial y doméstica, en instituciones o en el domicilio." },
+    { n:"Integración Social", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", turno:"Mañana",
       keys:["integracion social","integrador social","integradora social"],
-      desc:"Enfocado en programar y desarrollar actuaciones para prevenir o revertir situaciones de exclusión social. Se trabaja con colectivos vulnerables (inmigrantes, drogodependientes, personas sin hogar, menores en riesgo…) mediante programas de inserción laboral, mediación comunitaria, apoyo psicosocial y promoción de la igualdad de oportunidades." },
-    { n:"Seguridad", fam:"Seguridad y Medio Ambiente", niv:"Grado Medio", mod:"",
+      desc:"Programar y desarrollar actuaciones para prevenir o revertir la exclusión social, trabajando con colectivos vulnerables mediante inserción laboral, mediación comunitaria, apoyo psicosocial e igualdad de oportunidades." },
+    { n:"Educación Infantil", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", turno:"Mañana y noche",
+      keys:["educacion infantil","infantil","educador infantil","educadora infantil"],
+      desc:"Diseñar, ejecutar y evaluar proyectos educativos para niños y niñas de 0 a 6 años, trabajando el desarrollo cognitivo, motor, afectivo y social a través del juego y la educación en valores, en colaboración con las familias." },
+    { n:"Seguridad", fam:"Seguridad y Medio Ambiente", niv:"Grado Medio", turno:"Tarde",
       keys:["seguridad","seguridad privada","vigilante"],
-      desc:"Forma profesionales capaces de vigilar y proteger bienes, establecimientos, espectáculos y personas conforme a la normativa de seguridad privada. Se adquieren conocimientos en técnicas de protección, primeros auxilios, defensa personal y uso de sistemas de seguridad electrónicos para garantizar el orden y prevenir delitos." },
-    { n:"Emergencias y Protección Civil", fam:"Seguridad y Medio Ambiente", niv:"Grado Medio", mod:"",
+      desc:"Vigilar y proteger bienes, establecimientos, espectáculos y personas según la normativa de seguridad privada, con técnicas de protección, primeros auxilios, defensa personal y sistemas de seguridad electrónicos." },
+    { n:"Emergencias y Protección Civil", fam:"Seguridad y Medio Ambiente", niv:"Grado Medio", turno:"Tarde",
       keys:["emergencias","proteccion civil","emergencias y proteccion civil","bombero"],
-      desc:"Prepara para intervenir de forma directa en extinción de incendios, rescates, salvamentos y atención sanitaria inicial. Es un enfoque operativo y táctico: uso de equipos de protección, vehículos de emergencia y herramientas específicas para mitigar riesgos naturales, tecnológicos o antrópicos." },
-    { n:"Coordinación de Emergencias y Protección Civil", fam:"Seguridad y Medio Ambiente", niv:"Grado Superior", mod:"",
+      desc:"Intervenir directamente en extinción de incendios, rescates, salvamentos y atención sanitaria inicial, con equipos de protección, vehículos y herramientas para mitigar riesgos naturales, tecnológicos o antrópicos." },
+    { n:"Coordinación de Emergencias y Protección Civil", fam:"Seguridad y Medio Ambiente", niv:"Grado Superior", turno:"Tarde",
       keys:["coordinacion de emergencias","coordinacion emergencias","coordinador emergencias"],
-      desc:"Se centra en la planificación, gestión y supervisión de los planes de emergencia. Coordinarás recursos humanos y materiales en centros de control, dirigirás las operaciones de los equipos de intervención sobre el terreno y diseñarás estrategias de prevención y simulacros para la población." },
-    { n:"Prevención de Riesgos Profesionales", fam:"Seguridad y Medio Ambiente", niv:"Grado Superior", mod:"",
+      desc:"Planificar, gestionar y supervisar los planes de emergencia: coordinar recursos en centros de control, dirigir a los equipos de intervención y diseñar estrategias de prevención y simulacros." },
+    { n:"Prevención de Riesgos Profesionales", fam:"Seguridad y Medio Ambiente", niv:"Grado Superior", turno:"Tarde",
       keys:["prevencion de riesgos","prevencion riesgos","riesgos profesionales","prevencion riesgos profesionales","prl"],
-      desc:"Capacita para evaluar los riesgos laborales en las empresas y proponer medidas para eliminarlos o reducirlos. Aprenderás a desarrollar planes de prevención, fomentar hábitos de trabajo seguros, realizar inspecciones y gestionar la salud ambiental e industrial, asegurando el cumplimiento de la legislación laboral." },
-    { n:"Carpintería y Mueble (FP Básica)", fam:"Madera, Mueble y Corcho", niv:"Grado Básico", mod:"",
+      desc:"Evaluar los riesgos laborales de las empresas y proponer medidas para reducirlos: planes de prevención, hábitos de trabajo seguros, inspecciones y gestión de la salud ambiental e industrial." },
+    { n:"Carpintería y Mueble (FP Básica)", fam:"Madera, Mueble y Corcho", niv:"Grado Básico", turno:"Mañana",
       keys:["carpinteria basica","carpinteria y mueble basico","mueble basico"],
-      desc:"Iniciación profesional a los procesos básicos de mecanizado, montaje y acabado de productos de madera. Se aprende el manejo seguro de herramientas manuales y máquinas sencillas, para asistir en la fabricación e instalación de mobiliario, puertas o estructuras ligeras de madera." },
-    { n:"Carpintería y Mueble", fam:"Madera, Mueble y Corcho", niv:"Grado Medio", mod:"",
+      desc:"Iniciación a los procesos básicos de mecanizado, montaje y acabado de productos de madera, con manejo seguro de herramientas para fabricar e instalar mobiliario, puertas o estructuras ligeras." },
+    { n:"Carpintería y Mueble", fam:"Madera, Mueble y Corcho", niv:"Grado Medio", turno:"Mañana",
       keys:["carpinteria","mueble","carpinteria y mueble","ebanisteria"],
-      desc:"Profundiza en la fabricación, montaje y reparación de muebles y estructuras de madera con maquinaria convencional y de control numérico (CNC). Aprenderás a interpretar planos, preparar materiales, aplicar barnices y acabados, e instalar carpintería en obras y reformas con criterios de calidad y seguridad." },
-    { n:"Acondicionamiento Físico", fam:"Actividades Físicas y Deportivas", niv:"Grado Superior", mod:"",
+      desc:"Fabricación, montaje y reparación de muebles y estructuras de madera con maquinaria convencional y CNC: interpretar planos, preparar materiales, aplicar acabados e instalar carpintería en obras." },
+    { n:"Acondicionamiento Físico", fam:"Actividades Físicas y Deportivas", niv:"Grado Superior", turno:"Mañana",
       keys:["acondicionamiento fisico","fitness","gimnasio","monitor fisico"],
-      desc:"Orientado al sector del fitness y el bienestar: evaluar la condición física y diseñar programas de entrenamiento personalizados o colectivos. Aprenderás a dirigir salas de musculación, clases con música (ciclo indoor, pilates, aeróbic) y actividades acuáticas, buscando mejorar la salud y el rendimiento." },
-    { n:"Enseñanza y Animación Sociodeportiva", fam:"Actividades Físicas y Deportivas", niv:"Grado Superior", mod:"",
+      desc:"Sector del fitness y el bienestar: evaluar la condición física y diseñar entrenamientos, dirigiendo salas de musculación, clases con música (ciclo indoor, pilates, aeróbic) y actividades acuáticas." },
+    { n:"Enseñanza y Animación Sociodeportiva", fam:"Actividades Físicas y Deportivas", niv:"Grado Superior", turno:"Mañana",
       keys:["animacion sociodeportiva","ensenanza sociodeportiva","sociodeportiva","teas","deporte"],
-      desc:"Enfocado en la pedagogía del deporte y la recreación: planificar y dirigir actividades físico-deportivas recreativas y de iniciación. Trabajarás como dinamizador de grupos, organizando campamentos, eventos deportivos, juegos de animación y turismo activo para todas las edades." },
-    { n:"Fabricación y Montaje (FP Básica)", fam:"Instalación y Mantenimiento", niv:"Grado Básico", mod:"",
+      desc:"Pedagogía del deporte y la recreación: planificar y dirigir actividades físico-deportivas recreativas y de iniciación, campamentos, eventos y turismo activo para todas las edades." },
+    { n:"Fabricación y Montaje (FP Básica)", fam:"Instalación y Mantenimiento", niv:"Grado Básico", turno:"Mañana",
       keys:["fabricacion y montaje","fabricacion","montaje basico"],
-      desc:"Introduce a las tareas básicas de los talleres mecánicos y de carpintería metálica: técnicas elementales de soldadura, corte, plegado y ensamblado de piezas, además del montaje de tuberías e instalaciones básicas. Sirve de puente al mercado laboral o a un ciclo de grado medio." },
-    { n:"Mantenimiento Electromecánico", fam:"Instalación y Mantenimiento", niv:"Grado Medio", mod:"",
+      desc:"Tareas básicas de talleres mecánicos y carpintería metálica: soldadura, corte, plegado y ensamblado de piezas, y montaje de tuberías e instalaciones básicas. Puente al empleo o a un grado medio." },
+    { n:"Mantenimiento Electromecánico", fam:"Instalación y Mantenimiento", niv:"Grado Medio", turno:"Mañana",
       keys:["mantenimiento electromecanico","electromecanico","electromecanica"],
-      desc:"Forma en el montaje y conservación de maquinaria e instalaciones industriales y de edificación. Adquirirás competencias en mecánica, electricidad, neumática e hidráulica, aprendiendo a diagnosticar averías, sustituir piezas y realizar mantenimiento preventivo para garantizar la producción continua." },
-    { n:"Mecatrónica Industrial", fam:"Instalación y Mantenimiento", niv:"Grado Superior", mod:"",
+      desc:"Montaje y conservación de maquinaria e instalaciones industriales y de edificación, con competencias en mecánica, electricidad, neumática e hidráulica para diagnosticar averías y hacer mantenimiento preventivo." },
+    { n:"Mecatrónica Industrial", fam:"Instalación y Mantenimiento", niv:"Grado Superior", turno:"Tarde",
       keys:["mecatronica","mecatronica industrial"],
-      desc:"Combina mecánica, electrónica e informática para configurar y gestionar sistemas industriales automatizados. Integrarás robots, autómatas programables (PLC) y visión artificial en las fábricas, liderando el mantenimiento correctivo y optimizando la automatización de la industria actual." },
-    { n:"Cuidados Auxiliares de Enfermería", fam:"Sanidad", niv:"Grado Medio", mod:"",
+      desc:"Combina mecánica, electrónica e informática para configurar y gestionar sistemas industriales automatizados (robots, PLC, visión artificial), liderando el mantenimiento y la automatización." },
+    { n:"Cuidados Auxiliares de Enfermería", fam:"Sanidad", niv:"Grado Medio", turno:"Mañana",
       keys:["cuidados auxiliares de enfermeria","auxiliar de enfermeria","auxiliar enfermeria","enfermeria","tcae"],
-      desc:"Una de las titulaciones más demandadas: proporcionar cuidados básicos de salud y asistir al personal médico y de enfermería. Incluye higiene y alimentación de pacientes, preparación del material sanitario, toma de constantes vitales y apoyo al paciente en hospitales, clínicas y residencias." },
-    { n:"Higiene Bucodental", fam:"Sanidad", niv:"Grado Superior", mod:"",
+      desc:"Cuidados básicos de salud y apoyo al personal sanitario: higiene y alimentación de pacientes, preparación del material, toma de constantes y apoyo al paciente en hospitales, clínicas y residencias." },
+    { n:"Higiene Bucodental", fam:"Sanidad", niv:"Grado Superior", turno:"Mañana",
       keys:["higiene bucodental","bucodental","higienista dental","dental"],
-      desc:"Enfocado en la salud oral: promover la salud mediante acciones preventivas y asistenciales en clínicas dentales. Realizarás limpiezas (tartrectomías), aplicarás selladores y fluoraciones, harás radiografías dentales y educarás sobre higiene, siempre bajo la supervisión del odontólogo." },
-    { n:"Actividades de Panadería y Pastelería (FP Básica)", fam:"Industrias Alimentarias", niv:"Grado Básico", mod:"",
-      keys:["panaderia","pasteleria","panaderia y pasteleria","reposteria"],
-      desc:"Proporciona las destrezas fundamentales para elaborar panes, bollos, pasteles y productos de confitería. Aprenderás a preparar las materias primas (harinas, levaduras, azúcares), manejar hornos y utensilios de obrador y empaquetar los productos, manteniendo rigurosas normas de higiene y manipulación de alimentos." }
+      desc:"Salud oral: acciones preventivas y asistenciales en clínicas dentales (limpiezas, selladores, fluoraciones, radiografías) y educación sobre higiene, bajo la supervisión del odontólogo." }
   ];
 
   var FAMILIAS = [
@@ -230,8 +230,7 @@
     { nombre:"Madera, Mueble y Corcho",                    keys:["madera","corcho","madera mueble y corcho"] },
     { nombre:"Actividades Físicas y Deportivas",           keys:["actividades fisicas","fisicas y deportivas","deportivas"] },
     { nombre:"Instalación y Mantenimiento",                keys:["instalacion y mantenimiento","mantenimiento industrial"] },
-    { nombre:"Sanidad",                                    keys:["sanidad","salud","sanitaria"] },
-    { nombre:"Industrias Alimentarias",                    keys:["industrias alimentarias","alimentaria","alimentacion"] }
+    { nombre:"Sanidad",                                    keys:["sanidad","salud","sanitaria"] }
   ];
 
   // -- Ámbitos / profesiones para el flujo guiado "¿a qué te gustaría dedicarte?" --
@@ -241,9 +240,20 @@
     { label:"Deporte y actividad física",   fam:"Actividades Físicas y Deportivas" },
     { label:"Seguridad y emergencias",      fam:"Seguridad y Medio Ambiente" },
     { label:"Industria y mantenimiento",    fam:"Instalación y Mantenimiento" },
-    { label:"Carpintería y madera",         fam:"Madera, Mueble y Corcho" },
-    { label:"Alimentación y pastelería",    fam:"Industrias Alimentarias" }
+    { label:"Carpintería y madera",         fam:"Madera, Mueble y Corcho" }
   ];
+
+  // -- Turnos --
+  var TURNOS = ["Mañana", "Tarde", "Noche"];
+
+  // -- Horarios --
+  var HORARIOS = {
+    centro:  "07:00–21:45 h",
+    manana:  "08:00–14:00 h",
+    tarde:   "15:00–21:00 h",
+    noche:   "16:50–21:50 h",
+    secretaria: "Lunes a viernes de 9:00 a 13:00 h y miércoles también de 15:00 a 18:00 h."
+  };
 
   // -- Fechas destacadas (curso 2026/2027) --
   var FECHAS = {
@@ -258,9 +268,16 @@
   var CONTACTO = {
     telefono:  "+34 928 79 62 92",
     email:     "secretaria@iestonygallardo.com",
-    direccion: "Ctra. de Las Coloradas, s/n, 35009 – La Isleta (Las Palmas de Gran Canaria)",
+    direccion: "Ctra. de las Coloradas, 35009 Las Palmas de Gran Canaria",
     web:       "https://www3.gobiernodecanarias.org/medusa/edublog/cifptonygallardo/"
   };
+
+  // -- Trámites: pasos resumidos (Secretaría Virtual o presencial) --
+  var PROCEDIMIENTO =
+    "Puedes hacerlo de dos formas:<ul>" +
+    "<li><strong>Online</strong> (Secretaría Virtual): en la web del centro → <em>Espacio digital → Trámites</em>, rellena los datos y envíalo a <strong>secretaria@iestonygallardo.com</strong>.</li>" +
+    "<li><strong>Presencial</strong>: acude al centro con tu <strong>DNI</strong> (original y fotocopia). Recibirás respuesta por correo electrónico.</li>" +
+    "</ul>";
 
   /* ============================================================
      LÓGICA  ·  (normalmente no hace falta tocar nada de aquí abajo)
@@ -295,9 +312,16 @@
   function detalleCiclo(c){
     var t = "<strong>" + c.n + "</strong>: sí, se imparte aquí. Es un ciclo de <strong>" + c.niv +
             "</strong>, familia de " + c.fam + ".";
-    if(c.mod){ t += " Modalidad: " + c.mod + "."; }
+    if(c.turno){ t += " Turno de <strong>" + c.turno.toLowerCase() + "</strong>."; }
     if(c.desc){ t += "<br><br>" + c.desc; }
     return t;
+  }
+
+  function ciclosPorTurno(turno){
+    var arr = CICLOS.filter(function(c){ return (c.turno || "").toLowerCase().indexOf(turno.toLowerCase()) !== -1; });
+    if(!arr.length) return "Ahora mismo no tengo ciclos asignados a ese turno.";
+    return "Ciclos en <strong>turno de " + turno.toLowerCase() + "</strong>:" + listaCiclos(arr) +
+           "<br>Escribe el nombre de un ciclo para ver sus detalles.";
   }
 
   function fechasTodas(){
@@ -325,7 +349,8 @@
     if(!lista){
       return "Para datos de contacto (teléfono, email o dirección) consulta la web oficial del centro o la secretaría.";
     }
-    return (bare ? "" : "Puedes contactar con el CIFP Tony Gallardo:") + lista;
+    return (bare ? "" : "Puedes contactar con el CIFP Tony Gallardo:") + lista +
+           "<small>Atención al público de secretaría: " + HORARIOS.secretaria + "</small>";
   }
 
   // Construcción de intenciones
@@ -361,6 +386,44 @@
   // Oferta completa
   INTENTS.push({ keys:["ciclos","oferta","oferta formativa","titulaciones","formativos","que estudiar","que puedo estudiar","grados","que hay","familias","familias profesionales","todos los ciclos","ciclos formativos"], action:function(){ showDedicarte(); } });
 
+  // Turnos
+  INTENTS.push({ keys:["turno","turnos","horario de clase","manana tarde noche","que turnos hay"], answer:function(){
+    return "Tenemos clases en <strong>tres turnos</strong>: mañana, tarde y noche. ¿Cuál te interesa?";
+  }, chips:[ {label:"Turno de mañana", q:"turno de mañana"}, {label:"Turno de tarde", q:"turno de tarde"}, {label:"Turno de noche", q:"turno de noche"} ] });
+  INTENTS.push({ keys:["turno de manana","manana","por la manana","ciclos de manana"], answer:function(){ return ciclosPorTurno("Mañana"); },
+    chips:[ {label:"Turno de tarde", q:"turno de tarde"}, {label:"Turno de noche", q:"turno de noche"} ] });
+  INTENTS.push({ keys:["turno de tarde","tarde","por la tarde","ciclos de tarde"], answer:function(){ return ciclosPorTurno("Tarde"); },
+    chips:[ {label:"Turno de mañana", q:"turno de mañana"}, {label:"Turno de noche", q:"turno de noche"} ] });
+  INTENTS.push({ keys:["turno de noche","noche","por la noche","ciclos de noche","nocturno"], answer:function(){ return ciclosPorTurno("Noche"); },
+    chips:[ {label:"Turno de mañana", q:"turno de mañana"}, {label:"Turno de tarde", q:"turno de tarde"} ] });
+
+  // Horarios
+  INTENTS.push({ keys:["horario","horarios","a que hora","apertura","cierre","horario del centro","horas"], answer:function(){
+    return "Horarios del centro:<ul>" +
+      "<li>Centro abierto: <strong>" + HORARIOS.centro + "</strong></li>" +
+      "<li>Turno de mañana: <strong>" + HORARIOS.manana + "</strong></li>" +
+      "<li>Turno de tarde: <strong>" + HORARIOS.tarde + "</strong></li>" +
+      "<li>Turno de noche: <strong>" + HORARIOS.noche + "</strong></li>" +
+      "</ul>";
+  }, chips:[ {label:"Horario de secretaría", q:"horario de secretaria"}, {label:"Contacto", q:"contacto"} ] });
+  INTENTS.push({ keys:["horario de secretaria","atencion al publico","secretaria horario","horario secretaria","atencion publico"], answer:function(){
+    return "Atención al público de la <strong>secretaría</strong>: " + HORARIOS.secretaria;
+  }, chips:[ {label:"Hacer un trámite", q:"tramites"}, {label:"Contacto", q:"contacto"} ] });
+
+  // Trámites
+  INTENTS.push({ keys:["tramite","tramites","instancia","instancia generica","solicitud generica","secretaria virtual","gestion","papeleo"], answer:function(){
+    return "Puedes realizar trámites con el centro. La <strong>instancia genérica</strong> sirve para solicitudes que no tienen un formulario específico. " + PROCEDIMIENTO + "¿Qué trámite necesitas?";
+  }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"}, {label:"Instancia genérica", q:"instancia generica"} ] });
+  INTENTS.push({ keys:["certificado de notas","certificado de calificaciones","certificado notas","notas","calificaciones","certificado academico","expediente"], answer:function(){
+    return "El <strong>certificado de calificaciones</strong> acredita las notas de los estudios que solicitas (solo de cursos y materias ya finalizados; el curso actual no puede certificarse hasta que se depositen las actas). " + PROCEDIMIENTO;
+  }, chips:[ {label:"Certificado de matrícula", q:"certificado de matricula"}, {label:"Contacto", q:"contacto"} ] });
+  INTENTS.push({ keys:["certificado de matricula","certificado matricula","acreditar matricula","soy alumno","beca","becas","ayudas"], answer:function(){
+    return "El <strong>certificado de matrícula</strong> acredita que eres alumno/a del centro y que cursas los estudios en los que estás matriculado/a (se usa, por ejemplo, para becas y ayudas). " + PROCEDIMIENTO;
+  }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Contacto", q:"contacto"} ] });
+  INTENTS.push({ keys:["certificado","certificados","certificacion","titulo","titulos","compulsa"], answer:function(){
+    return "Puedo ayudarte con certificados. ¿Cuál necesitas?";
+  }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"} ] });
+
   // Fechas
   INTENTS.push({ keys:["fechas","plazos","calendario","fechas importantes","fechas destacadas","cuando","fechas clave"], answer:fechasTodas });
   INTENTS.push({ keys:["solicitud de plaza","solicitar plaza","pedir plaza","preinscripcion","cuando solicito","plazo de solicitud","inscripcion","apuntarme"], answer:function(){
@@ -376,11 +439,6 @@
       "<li>Reclamación a provisionales y renuncia a la solicitud: " + FECHAS.reclama + ".</li>" +
       "<li>Definitivas: " + FECHAS.defin + ".</li>" +
       "</ul>";
-  }});
-
-  // Certificados -> remitir a contacto
-  INTENTS.push({ keys:["certificado","certificados","certificacion","titulo","titulos","expediente","notas","calificaciones","certificado academico","compulsa"], answer:function(){
-    return "Para consultas sobre <strong>certificados, títulos o expedientes</strong>, lo mejor es contactar directamente con la secretaría del centro:" + contactoResp(true);
   }});
 
   // Contacto
@@ -431,7 +489,7 @@
     "<li>Email: <strong>" + CONTACTO.email + "</strong></li>" +
     "</ul>";
 
-  var CHIPS = ["Ciclos formativos", "Fechas y plazos", "Contacto"];
+  var CHIPS = ["Ciclos formativos", "Turnos", "Trámites", "Contacto"];
 
   /* ---------- Interfaz ---------- */
   var root    = document.getElementById("gb-root");
@@ -498,7 +556,13 @@
       typing(true);
       setTimeout(function(){ typing(false); intent.action(); }, 700);
     } else {
-      botSay((intent && intent.answer()) || FALLBACK);
+      botSay((intent && intent.answer()) || FALLBACK, function(){
+        if(intent && intent.chips && intent.chips.length){
+          addOptions(intent.chips.map(function(c){
+            return { label:c.label, onClick:function(){ send(c.q); } };
+          }));
+        }
+      });
     }
   }
 
