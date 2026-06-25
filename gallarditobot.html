@@ -437,10 +437,13 @@
     return "Atención al público de la <strong>secretaría</strong>: " + HORARIOS.secretaria;
   }, chips:[ {label:"Hacer un trámite", q:"tramites"}, {label:"Contacto", q:"contacto"} ] });
 
-  // Trámites
-  INTENTS.push({ keys:["tramite","tramites","instancia","instancia generica","solicitud generica","secretaria virtual","gestion","papeleo"], answer:function(){
-    return "Puedes realizar trámites con el centro. La <strong>instancia genérica</strong> sirve para solicitudes que no tienen un formulario específico. " + PROCEDIMIENTO + "¿Qué trámite necesitas?";
-  }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"}, {label:"Instancia genérica", q:"instancia generica"} ] });
+  // Trámites: primero ofrecer las opciones, luego explicarlas
+  INTENTS.push({ keys:["tramite","tramites","secretaria virtual","gestion","papeleo","solicitud","solicitudes"], answer:function(){
+    return "Estos son los trámites con los que puedo ayudarte. ¿Cuál necesitas?";
+  }, chips:[ {label:"Instancia genérica", q:"instancia generica"}, {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"} ] });
+  INTENTS.push({ keys:["instancia","instancia generica","solicitud generica","instancia general"], answer:function(){
+    return "La <strong>instancia genérica</strong> es una solicitud para trámites que no tienen un formulario específico: puedes exponer tu situación y redactar la solicitud concreta. " + PROCEDIMIENTO;
+  }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"}, {label:"Contacto", q:"contacto"} ] });
   INTENTS.push({ keys:["certificado de notas","certificado de calificaciones","certificado notas","notas","calificaciones","certificado academico","expediente"], answer:function(){
     return "El <strong>certificado de calificaciones</strong> acredita las notas de los estudios que solicitas (solo de cursos y materias ya finalizados; el curso actual no puede certificarse hasta que se depositen las actas). " + PROCEDIMIENTO;
   }, chips:[ {label:"Certificado de matrícula", q:"certificado de matricula"}, {label:"Contacto", q:"contacto"} ] });
