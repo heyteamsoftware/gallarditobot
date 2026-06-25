@@ -48,7 +48,7 @@
     { n:"Atención a Personas en Situación de Dependencia", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Medio", turno:"Tarde",
       keys:["dependencia","atencion a personas","personas en situacion de dependencia","apsd"],
       desc:"Capacita para atender a personas que necesitan apoyo en las actividades de la vida diaria por vejez, enfermedad o discapacidad, manteniendo su autonomía con atención sanitaria, psicosocial y doméstica, en instituciones o en el domicilio." },
-    { n:"Integración Social", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", turno:"Mañana",
+    { n:"Integración Social", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", turno:"Mañana y noche",
       keys:["integracion social","integrador social","integradora social"],
       desc:"Programar y desarrollar actuaciones para prevenir o revertir la exclusión social, trabajando con colectivos vulnerables mediante inserción laboral, mediación comunitaria, apoyo psicosocial e igualdad de oportunidades." },
     { n:"Educación Infantil", fam:"Servicios Socioculturales y a la Comunidad", niv:"Grado Superior", turno:"Mañana y noche",
