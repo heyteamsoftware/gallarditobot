@@ -454,6 +454,11 @@
     return "Puedo ayudarte con certificados. ¿Cuál necesitas?";
   }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"} ] });
 
+  // Lengua de Signos / idiomas / accesibilidad / optativas / 2º de CFGS
+  INTENTS.push({ keys:["lengua de signos","signos","lse","idioma","idiomas","ingles","accesibilidad","inclusiva","inclusion","optativa","optativas","materia optativa","materias optativas","optativas disponibles","programa formativo","segundo curso","segundos cursos","2 curso","2º curso"], answer:function(){
+    return "En el CIFP Tony Gallardo puedes aprender <strong>Lengua de Signos Española (LSE)</strong>: se ofrece como <strong>materia optativa en los segundos cursos de los Ciclos Formativos de Grado Superior</strong>, dentro de nuestro compromiso con la accesibilidad y la comunicación inclusiva.<br>Para más información, contacta con el centro.";
+  }, chips:[ {label:"Contacto", q:"contacto"}, {label:"Ciclos formativos", q:"ciclos formativos"} ] });
+
   // Fechas
   INTENTS.push({ keys:["fechas","plazos","calendario","fechas importantes","fechas destacadas","cuando","fechas clave"], answer:fechasTodas });
   INTENTS.push({ keys:["solicitud de plaza","solicitar plaza","pedir plaza","preinscripcion","cuando solicito","plazo de solicitud","inscripcion","apuntarme"], answer:function(){
