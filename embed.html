@@ -119,9 +119,23 @@
 
   <!-- Modo iframe: sin apertura automática y con avisos de tamaño al contenedor -->
   <script>window.GB_NO_AUTOOPEN = true; window.GB_IFRAME = true;</script>
-  <!-- Contador de visitas: suma 1 en cada carga -->
+  <!-- Contador de visitas únicas: 1 por IP y día (la IP se anonimiza con un hash) -->
   <script>
-    try{ fetch("https://abacus.jasoncameron.dev/hit/cifptonygallardo/gallarditobot-visitas").catch(function(){}); }catch(e){}
+  (function(){
+    var BASE = "https://abacus.jasoncameron.dev", NS = "cifptonygallardo", MAIN = "gallarditobot-visitas";
+    function hit(key){ return fetch(BASE + "/hit/" + NS + "/" + key).then(function(r){ return r.json(); }); }
+    function hash(s){ var h = 5381; for(var i=0;i<s.length;i++){ h = ((h<<5)+h) + s.charCodeAt(i); h = h & 0xffffffff; } return (h>>>0).toString(16); }
+    try{
+      fetch("https://api.ipify.org?format=json").then(function(r){ return r.json(); }).then(function(d){
+        var ip = (d && d.ip) || "anon";
+        var day = new Date().toISOString().slice(0,10).replace(/-/g,"");   // AAAAMMDD
+        var clave = "u-" + day + "-" + hash(ip);                            // única por IP y día
+        return hit(clave).then(function(res){
+          if(res && res.value === 1){ return hit(MAIN); }                   // primera vez de esta IP hoy -> cuenta
+        });
+      }).catch(function(){ /* si no se puede obtener la IP, no contamos para no inflar */ });
+    }catch(e){}
+  })();
   </script>
   <!-- Lógica y base de conocimiento (fuente única) -->
   <script src="https://heyteamsoftware.github.io/gallarditobot/gallarditobot.js"></script>
