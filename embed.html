@@ -122,7 +122,7 @@
   <!-- Contador de visitas únicas: 1 por IP y día (la IP se anonimiza con un hash) -->
   <script>
   (function(){
-    var BASE = "https://abacus.jasoncameron.dev", NS = "cifptonygallardo", MAIN = "gallarditobot-visitas";
+    var BASE = "https://abacus.jasoncameron.dev", NS = "cifptonygallardo", MAIN = "visitas2026";
     function hit(key){ return fetch(BASE + "/hit/" + NS + "/" + key).then(function(r){ return r.json(); }); }
     function hash(s){ var h = 5381; for(var i=0;i<s.length;i++){ h = ((h<<5)+h) + s.charCodeAt(i); h = h & 0xffffffff; } return (h>>>0).toString(16); }
     try{
