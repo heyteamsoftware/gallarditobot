@@ -119,6 +119,10 @@
 
   <!-- Modo iframe: sin apertura automática y con avisos de tamaño al contenedor -->
   <script>window.GB_NO_AUTOOPEN = true; window.GB_IFRAME = true;</script>
+  <!-- Contador de visitas: suma 1 en cada carga -->
+  <script>
+    try{ fetch("https://abacus.jasoncameron.dev/hit/cifptonygallardo/gallarditobot-visitas").catch(function(){}); }catch(e){}
+  </script>
   <!-- Lógica y base de conocimiento (fuente única) -->
   <script src="https://heyteamsoftware.github.io/gallarditobot/gallarditobot.js"></script>
   <script>

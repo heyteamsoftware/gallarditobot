@@ -258,6 +258,13 @@
       desc:"Operaciones básicas de servicio en restaurante y bar: preparación de la sala, atención al cliente, servicio de alimentos y bebidas y manejo de la cafetería." }
   ];
 
+  // -- Contador de visitas (servicio externo gratuito Abacus) --
+  var CONTADOR = {
+    base: "https://abacus.jasoncameron.dev",
+    ns:   "cifptonygallardo",
+    key:  "gallarditobot-visitas"
+  };
+
   // -- Turnos --
   var TURNOS = ["Mañana", "Tarde", "Noche"];
 
@@ -453,6 +460,22 @@
   INTENTS.push({ keys:["certificado","certificados","certificacion","titulo","titulos","compulsa"], answer:function(){
     return "Puedo ayudarte con certificados. ¿Cuál necesitas?";
   }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"} ] });
+
+  // Contador de visitas
+  INTENTS.push({ keys:["visitas","cuantas visitas","cuanta gente","contador","numero de visitas","cuantas veces","cuantas personas","cuantas consultas","cuantas veces te han visitado","cuantas veces te han preguntado"], action:function(){
+    typing(true);
+    fetch(CONTADOR.base + "/get/" + CONTADOR.ns + "/" + CONTADOR.key)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        typing(false);
+        var n = d && (d.value != null ? d.value : d.count);
+        addMsg("Me han visitado <strong>" + (n != null ? n : "—") + "</strong> veces. ¡Gracias por pasarte!", "bot");
+      })
+      .catch(function(){
+        typing(false);
+        addMsg("Ahora mismo no puedo consultar el número de visitas. Inténtalo de nuevo más tarde.", "bot");
+      });
+  } });
 
   // Lengua de Signos / idiomas / accesibilidad / optativas / 2º de CFGS
   INTENTS.push({ keys:["lengua de signos","signos","lse","idioma","idiomas","ingles","accesibilidad","inclusiva","inclusion","optativa","optativas","materia optativa","materias optativas","optativas disponibles","programa formativo","segundo curso","segundos cursos","2 curso","2º curso"], answer:function(){
