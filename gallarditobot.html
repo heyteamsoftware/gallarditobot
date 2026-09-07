@@ -260,9 +260,10 @@
 
   // -- Contador de visitas (servicio externo gratuito Abacus) --
   var CONTADOR = {
-    base: "https://abacus.jasoncameron.dev",
-    ns:   "cifptonygallardo",
-    key:  "visitas2026"
+    base:      "https://abacus.jasoncameron.dev",
+    ns:        "cifptonygallardo",
+    key:       "visitas2026",     // visitas (aperturas del bot, únicas por IP/día)
+    keyConsul: "consultas2026"    // consultas (preguntas realizadas al bot)
   };
 
   // -- Turnos --
@@ -461,20 +462,21 @@
     return "Puedo ayudarte con certificados. ¿Cuál necesitas?";
   }, chips:[ {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"} ] });
 
-  // Contador de visitas
-  INTENTS.push({ keys:["visitas","cuantas visitas","cuanta gente","contador","numero de visitas","cuantas veces","cuantas personas","cuantas consultas","cuantas veces te han visitado","cuantas veces te han preguntado"], action:function(){
+  // Contador de visitas y consultas
+  INTENTS.push({ keys:["visitas","cuantas visitas","cuanta gente","contador","estadisticas","numero de visitas","cuantas veces","cuantas personas","cuantas consultas","consultas","preguntas","cuantas preguntas","cuantas veces te han visitado","cuantas veces te han preguntado"], action:function(){
     typing(true);
-    fetch(CONTADOR.base + "/get/" + CONTADOR.ns + "/" + CONTADOR.key)
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        typing(false);
-        var n = d && (d.value != null ? d.value : d.count);
-        addMsg("Me han visitado <strong>" + (n != null ? n : "—") + "</strong> veces. ¡Gracias por pasarte!", "bot");
-      })
-      .catch(function(){
-        typing(false);
-        addMsg("Ahora mismo no puedo consultar el número de visitas. Inténtalo de nuevo más tarde.", "bot");
-      });
+    function val(k){ return fetch(CONTADOR.base + "/get/" + CONTADOR.ns + "/" + k).then(function(r){ return r.json(); }).then(function(d){ return d && (d.value != null ? d.value : d.count); }); }
+    Promise.all([ val(CONTADOR.key), val(CONTADOR.keyConsul) ]).then(function(r){
+      typing(false);
+      var v = r[0] != null ? r[0] : "—", c = r[1] != null ? r[1] : "—";
+      addMsg("Estas son mis estadísticas:<ul>" +
+             "<li><strong>Visitas</strong> (personas que me han abierto): <strong>" + v + "</strong></li>" +
+             "<li><strong>Consultas</strong> (preguntas que me han hecho): <strong>" + c + "</strong></li>" +
+             "</ul>¡Gracias por pasarte!", "bot");
+    }).catch(function(){
+      typing(false);
+      addMsg("Ahora mismo no puedo consultar las estadísticas. Inténtalo de nuevo más tarde.", "bot");
+    });
   } });
 
   // Lengua de Signos / idiomas / accesibilidad / optativas / 2º de CFGS
@@ -629,6 +631,10 @@
     if(!v) return;
     addMsg(v, "user");
     input.value = "";
+    // Cuenta una "consulta" por cada pregunta del usuario (solo en la web embebida)
+    if(window.GB_IFRAME){
+      try{ fetch(CONTADOR.base + "/hit/" + CONTADOR.ns + "/" + CONTADOR.keyConsul).catch(function(){}); }catch(e){}
+    }
     answer(v);
   }
 
