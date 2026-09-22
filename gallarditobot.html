@@ -479,6 +479,13 @@
     });
   } });
 
+  // Campus virtual
+  INTENTS.push({ keys:["campus","campus virtual","entrar al campus","acceder al campus","como entrar al campus","aula virtual","plataforma","eforma","moodle","cursos online","entrar en el campus","enlace del campus"], answer:function(){
+    return "Puedes acceder al <strong>campus virtual</strong> del CIFP Tony Gallardo desde aquí:<br>" +
+      '<a href="https://www3.gobiernodecanarias.org/medusa/eforma/campus/my/courses.php" target="_blank" rel="noopener">Entrar al campus</a>' +
+      "<br>Inicia sesión con tus credenciales de la Consejería de Educación.";
+  }, chips:[ {label:"Contacto", q:"contacto"} ] });
+
   // Lengua de Signos / idiomas / accesibilidad / optativas / 2º de CFGS
   INTENTS.push({ keys:["lengua de signos","signos","lse","idioma","idiomas","ingles","accesibilidad","inclusiva","inclusion","optativa","optativas","materia optativa","materias optativas","optativas disponibles","programa formativo","segundo curso","segundos cursos","2 curso","2º curso"], answer:function(){
     return "En el CIFP Tony Gallardo puedes aprender <strong>Lengua de Signos Española (LSE)</strong>: se ofrece como <strong>materia optativa en los segundos cursos de los Ciclos Formativos de Grado Superior</strong>, dentro de nuestro compromiso con la accesibilidad y la comunicación inclusiva.<br>Para más información, contacta con el centro.";
