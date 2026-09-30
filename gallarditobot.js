@@ -149,15 +149,6 @@
     secretaria: "Lunes a viernes de 9:00 a 13:00 h y miércoles también de 15:00 a 18:00 h."
   };
 
-  // -- Fechas destacadas (curso 2026/2027) --
-  var FECHAS = {
-    solicitud:  "del 9 al 24 de abril de 2026",
-    matricula:  "del 22 al 29 de junio de 2026",
-    provis:     "el 25 de junio de 2026",
-    reclama:    "del 25 al 29 de junio de 2026",
-    defin:      "el 2 de julio de 2026"
-  };
-
   // -- EDITAR CONTACTO: rellena estos datos y se mostrarán al preguntar por contacto --
   var CONTACTO = {
     telefono:  "+34 928 79 62 92",
@@ -216,17 +207,6 @@
     if(!arr.length) return "Ahora mismo no tengo ciclos asignados a ese turno.";
     return "Ciclos en <strong>turno de " + turno.toLowerCase() + "</strong>:" + listaCiclos(arr) +
            "<br>Escribe el nombre de un ciclo para ver sus detalles.";
-  }
-
-  function fechasTodas(){
-    return "Fechas destacadas para el acceso (curso 2026/2027):" +
-      "<ul>" +
-      "<li><strong>Solicitud de plaza</strong> (Grados D · Básico, Medio, Superior y dobles titulaciones): " + FECHAS.solicitud + ".</li>" +
-      "<li><strong>Matrícula</strong> de continuidad y repetidor (1º curso): " + FECHAS.matricula + ".</li>" +
-      "<li><strong>Listas provisionales</strong> (admitidos, reserva y excluidos): " + FECHAS.provis + ".</li>" +
-      "<li><strong>Reclamación a provisionales y renuncia</strong>: " + FECHAS.reclama + ".</li>" +
-      "<li><strong>Listas definitivas</strong>: " + FECHAS.defin + ".</li>" +
-      "</ul>";
   }
 
   function listaContacto(){
@@ -317,7 +297,7 @@
   }, chips:[ {label:"Hacer un trámite", q:"tramites"}, {label:"Contacto", q:"contacto"} ] });
 
   // Trámites: primero ofrecer las opciones, luego explicarlas
-  INTENTS.push({ keys:["tramite","tramites","secretaria virtual","gestion","papeleo","solicitud","solicitudes"], answer:function(){
+  INTENTS.push({ keys:["tramite","tramites","secretaria virtual","gestion","papeleo"], answer:function(){
     return "Estos son los trámites con los que puedo ayudarte. ¿Cuál necesitas?";
   }, chips:[ {label:"Instancia genérica", q:"instancia generica"}, {label:"Certificado de notas", q:"certificado de notas"}, {label:"Certificado de matrícula", q:"certificado de matricula"} ] });
   INTENTS.push({ keys:["instancia","instancia generica","solicitud generica","instancia general"], answer:function(){
@@ -362,29 +342,12 @@
     return "En el CIFP Tony Gallardo puedes aprender <strong>Lengua de Signos Española (LSE)</strong>: se ofrece como <strong>materia optativa en los segundos cursos de los Ciclos Formativos de Grado Superior</strong>, dentro de nuestro compromiso con la accesibilidad y la comunicación inclusiva.<br>Para más información, contacta con el centro.";
   }, chips:[ {label:"Contacto", q:"contacto"}, {label:"Ciclos formativos", q:"ciclos formativos"} ] });
 
-  // Fechas
-  INTENTS.push({ keys:["fechas","plazos","calendario","fechas importantes","fechas destacadas","cuando","fechas clave"], answer:fechasTodas });
-  INTENTS.push({ keys:["solicitud de plaza","solicitar plaza","pedir plaza","preinscripcion","cuando solicito","plazo de solicitud","inscripcion","apuntarme"], answer:function(){
-    return "El <strong>periodo de solicitud de plaza</strong> (Grados D de FP Básica, Medio y Superior, y dobles titulaciones) es <strong>" + FECHAS.solicitud + "</strong>.";
-  }});
-  INTENTS.push({ keys:["matricula","matricularme","cuando me matriculo","plazo de matricula","continuidad","repetidor","formalizar matricula"], answer:function(){
-    return "El <strong>plazo de matrícula</strong> para alumnado de continuidad y repetidor (1º curso) es <strong>" + FECHAS.matricula + "</strong>.";
-  }});
-  INTENTS.push({ keys:["listas","admitidos","listas provisionales","listas definitivas","reserva","excluidos","reclamacion","renuncia","admision"], answer:function(){
-    return "Sobre las <strong>listas de admisión</strong>:" +
-      "<ul>" +
-      "<li>Provisionales (admitidos, reserva, excluidos): " + FECHAS.provis + ".</li>" +
-      "<li>Reclamación a provisionales y renuncia a la solicitud: " + FECHAS.reclama + ".</li>" +
-      "<li>Definitivas: " + FECHAS.defin + ".</li>" +
-      "</ul>";
-  }});
-
   // Contacto
   INTENTS.push({ keys:["contacto","telefono","direccion","email","correo","donde estais","donde esta","secretaria","ubicacion","como llegar"], answer:contactoResp });
 
   // Conversacional
   INTENTS.push({ keys:["hola","buenas","hey","buenos dias","buenas tardes","buenas noches","saludos"], answer:function(){
-    return "¡Hola! Soy GallarditoBot. Puedo ayudarte con los <strong>ciclos formativos</strong>, las <strong>fechas y plazos</strong> y los <strong>datos de contacto</strong> del centro. ¿Qué quieres saber?";
+    return "¡Hola! Soy GallarditoBot. Puedo ayudarte con los <strong>ciclos formativos</strong>, los <strong>turnos</strong>, los <strong>trámites</strong> y los <strong>datos de contacto</strong> del centro. ¿Qué quieres saber?";
   }});
   INTENTS.push({ keys:["gracias","muchas gracias","genial","perfecto"], answer:function(){
     return "¡De nada! Si necesitas algo más sobre el centro, aquí estoy.";
@@ -395,37 +358,75 @@
   INTENTS.push({ keys:["ayuda","que puedes hacer","que sabes","para que sirves","info","informacion","quien eres"], answer:function(){
     return "Soy el asistente del CIFP Tony Gallardo. Te puedo informar de:<ul>" +
       "<li>La <strong>oferta formativa</strong> (familias y ciclos).</li>" +
-      "<li>Las <strong>fechas y plazos</strong> de solicitud, matrícula y listas.</li>" +
+      "<li>Los <strong>turnos</strong> y <strong>horarios</strong> del centro.</li>" +
+      "<li>Los <strong>trámites</strong> (instancia genérica y certificados).</li>" +
       "<li>Los <strong>datos de contacto</strong> del centro.</li>" +
       "</ul>Prueba con: «¿qué ciclos de sanidad hay?» o «¿cuándo me matriculo?».";
   }});
 
-  function buscar(texto){
-    var q = norm(texto);
-    if(!q) return null;
-    var qtok = q.split(" ");
+  // Distancia de edición (con transposición de letras contiguas: "enfermeira" ~ "enfermeria")
+  function distancia(a, b){
+    var la = a.length, lb = b.length, d = [], i, j;
+    for(i=0;i<=la;i++){ d[i] = [i]; }
+    for(j=1;j<=lb;j++){ d[0][j] = j; }
+    for(i=1;i<=la;i++){
+      for(j=1;j<=lb;j++){
+        var c = a.charAt(i-1) === b.charAt(j-1) ? 0 : 1;
+        d[i][j] = Math.min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1]+c);
+        if(i>1 && j>1 && a.charAt(i-1) === b.charAt(j-2) && a.charAt(i-2) === b.charAt(j-1)){
+          d[i][j] = Math.min(d[i][j], d[i-2][j-2]+1);
+        }
+      }
+    }
+    return d[la][lb];
+  }
+
+  // ¿La palabra de la clave aparece en la pregunta? Las palabras largas admiten erratas.
+  function palabraCoincide(qtok, palabra, fuzzy){
+    if(qtok.indexOf(palabra) !== -1) return true;
+    if(!fuzzy || palabra.length < 5) return false;
+    var tol = palabra.length >= 9 ? 2 : 1;
+    for(var i=0;i<qtok.length;i++){
+      var t = qtok[i];
+      if(t.length >= 5 && Math.abs(t.length - palabra.length) <= tol && distancia(t, palabra) <= tol) return true;
+    }
+    return false;
+  }
+
+  function mejorIntencion(q, qtok, fuzzy){
     var best = null, bestScore = 0, bestLen = 0;
     for(var i=0;i<INTENTS.length;i++){
       var keys = INTENTS[i].keys, score = 0, maxLen = 0;
       for(var k=0;k<keys.length;k++){
         var nk = norm(keys[k]); if(!nk) continue;
         var words = nk.split(" "), hit=false, w=0;
-        if(words.length > 1){ if(q.indexOf(nk) !== -1){ hit=true; w = 2 + words.length; } }
-        else { if(qtok.indexOf(nk) !== -1){ hit=true; w = 1; } }
+        if(words.length > 1){
+          if(fuzzy){ hit = words.every(function(p){ return palabraCoincide(qtok, p, true); }); }
+          else { hit = q.indexOf(nk) !== -1; }
+          if(hit){ w = 2 + words.length; }
+        } else if(palabraCoincide(qtok, nk, fuzzy)){ hit = true; w = 1; }
         if(hit){ score += w; if(nk.length > maxLen) maxLen = nk.length; }
       }
       if(score > bestScore || (score === bestScore && maxLen > bestLen)){
         bestScore = score; bestLen = maxLen; best = INTENTS[i];
       }
     }
-    if(best && bestScore >= 1) return best;
-    return null;
+    return bestScore >= 1 ? best : null;
+  }
+
+  function buscar(texto){
+    var q = norm(texto);
+    if(!q) return null;
+    var qtok = q.split(" ");
+    // 1) coincidencia exacta; 2) si no hay ninguna, tolerancia a erratas
+    return mejorIntencion(q, qtok, false) || mejorIntencion(q, qtok, true);
   }
 
   var FALLBACK = "No tengo esa información. Para resolver tu duda, contacta con la secretaría del centro:<ul>" +
     "<li>Teléfono: <strong>" + CONTACTO.telefono + "</strong></li>" +
     "<li>Email: <strong>" + CONTACTO.email + "</strong></li>" +
     "</ul>";
+  var FALLBACK_CHIPS = [ {label:"Ciclos formativos", q:"ciclos formativos"}, {label:"Trámites", q:"tramites"}, {label:"Contacto", q:"contacto"} ];
 
   var CHIPS = ["Ciclos formativos", "Turnos", "Trámites", "Contacto"];
 
@@ -495,8 +496,9 @@
       setTimeout(function(){ typing(false); intent.action(); }, 700);
     } else {
       botSay((intent && intent.answer()) || FALLBACK, function(){
-        if(intent && intent.chips && intent.chips.length){
-          addOptions(intent.chips.map(function(c){
+        var chips = intent ? intent.chips : FALLBACK_CHIPS;
+        if(chips && chips.length){
+          addOptions(chips.map(function(c){
             return { label:c.label, onClick:function(){ send(c.q); } };
           }));
         }
@@ -561,7 +563,7 @@
     launcher.setAttribute("aria-expanded", "true");
     if(!started){
       started = true;
-      addMsg("¡Hola! 👋 Soy <strong>GallarditoBot</strong>, el asistente del CIFP Tony Gallardo. Pregúntame por nuestros ciclos, las fechas de matrícula o cómo contactar con el centro. ¿En qué te ayudo?".replace("👋",""), "bot");
+      addMsg("¡Hola! 👋 Soy <strong>GallarditoBot</strong>, el asistente del CIFP Tony Gallardo. Pregúntame por nuestros ciclos, los turnos, los trámites o cómo contactar con el centro. ¿En qué te ayudo?".replace("👋",""), "bot");
       buildChips();
     }
     setTimeout(function(){ input.focus(); }, 50);

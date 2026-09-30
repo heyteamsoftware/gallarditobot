@@ -119,22 +119,16 @@
 
   <!-- Modo iframe: sin apertura automática y con avisos de tamaño al contenedor -->
   <script>window.GB_NO_AUTOOPEN = true; window.GB_IFRAME = true;</script>
-  <!-- Contador de visitas únicas: 1 por IP y día (la IP se anonimiza con un hash) -->
+  <!-- Contador de visitas únicas: 1 por navegador y día (sin IP; solo una marca local con la fecha) -->
   <script>
   (function(){
-    var BASE = "https://abacus.jasoncameron.dev", NS = "cifptonygallardo", MAIN = "visitas2026";
-    function hit(key){ return fetch(BASE + "/hit/" + NS + "/" + key).then(function(r){ return r.json(); }); }
-    function hash(s){ var h = 5381; for(var i=0;i<s.length;i++){ h = ((h<<5)+h) + s.charCodeAt(i); h = h & 0xffffffff; } return (h>>>0).toString(16); }
+    var URL = "https://abacus.jasoncameron.dev/hit/cifptonygallardo/visitas2026";
     try{
-      fetch("https://api.ipify.org?format=json").then(function(r){ return r.json(); }).then(function(d){
-        var ip = (d && d.ip) || "anon";
-        var day = new Date().toISOString().slice(0,10).replace(/-/g,"");   // AAAAMMDD
-        var clave = "u-" + day + "-" + hash(ip);                            // única por IP y día
-        return hit(clave).then(function(res){
-          if(res && res.value === 1){ return hit(MAIN); }                   // primera vez de esta IP hoy -> cuenta
-        });
-      }).catch(function(){ /* si no se puede obtener la IP, no contamos para no inflar */ });
-    }catch(e){}
+      var hoy = new Date().toISOString().slice(0,10).replace(/-/g,"");   // AAAAMMDD
+      if(localStorage.getItem("gb_visita") === hoy) return;              // ya contada hoy
+      localStorage.setItem("gb_visita", hoy);
+      fetch(URL).catch(function(){});
+    }catch(e){ /* sin almacenamiento local no contamos, para no inflar la cifra */ }
   })();
   </script>
   <!-- Lógica y base de conocimiento (fuente única) -->
@@ -147,8 +141,17 @@
       var panel   = document.getElementById("gb-panel");
       if(!teaser || !launcher || !panel) return;
       function hide(){ teaser.style.display = "none"; }
+      // Mostrar el aviso solo una vez por sesión de navegación (si no hay sessionStorage, se muestra siempre)
+      var yaVisto = false;
+      try{ yaVisto = sessionStorage.getItem("gb_teaser") === "1"; }catch(e){}
+      if(yaVisto) return;
       // Mostrar el aviso poco después de cargar, solo si el chat está cerrado
-      setTimeout(function(){ if(panel.hidden){ teaser.style.display = "flex"; } }, 1400);
+      setTimeout(function(){
+        if(panel.hidden){
+          teaser.style.display = "flex";
+          try{ sessionStorage.setItem("gb_teaser", "1"); }catch(e){}
+        }
+      }, 1400);
       // Pulsar el aviso abre el chat
       teaser.addEventListener("click", function(e){ if(e.target === closeT) return; hide(); launcher.click(); });
       teaser.addEventListener("keydown", function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); hide(); launcher.click(); } });

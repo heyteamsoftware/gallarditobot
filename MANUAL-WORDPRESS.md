@@ -148,7 +148,8 @@ curl -X POST "https://abacus.jasoncameron.dev/set/cifptonygallardo/visitas2026?v
 
 ## 9. Estadísticas
 
-- El bot cuenta **visitas** (aperturas únicas por IP y día) y **consultas**
+- El bot cuenta **visitas** (una por navegador y día, mediante una marca local con la
+  fecha; no se usa ni se envía la IP) y **consultas**
   (cada pregunta del usuario).
 - Preguntar al bot "cuántas visitas" o "estadísticas" muestra ambas cifras.
 - Es un recuento **orientativo** (no auditable). Para datos fiables usar
